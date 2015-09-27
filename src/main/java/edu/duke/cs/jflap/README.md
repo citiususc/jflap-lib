@@ -41,9 +41,10 @@ if (sim == null) throw new RuntimeException("Cannot load an automaton simulator 
 System.out.println(sim.simulateInput("10010"));
 ```
 
-## Original JFLAP 7.0 License
+## JFLAP 7.0 License
 
-Here is a copy of the original JFLAP 7.0 License:
+This project contains the original JFLAP 7.0 source code with some modifications to make it suitable for using as
+a library. Here is a copy of the original JFLAP 7.0 License:
 
     JFLAP 7.0 LICENSE
     
