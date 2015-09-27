@@ -28,6 +28,19 @@ Finally, include jflap-lib as a dependency:
 
 ## Example
 
+It is very easy to use JFLAP programatically. Here is an example of how to load a jff automaton 
+and test it with an input:
+
+```java
+// Load an automaton jff file
+FiniteStateAutomaton automaton = (FiniteStateAutomaton)new XMLCodec().decode(new File("example.jff"), null);
+// Load a simulator to test the automaton
+AutomatonSimulator sim = SimulatorFactory.getSimulator(automaton);
+if (sim == null) throw new RuntimeException("Cannot load an automaton simulator for " + automaton.getClass());
+// Test the automaton with an input
+System.out.println(sim.simulateInput("10010"));
+```
+
 ## Original JFLAP 7.0 License
 
 Here is a copy of the original JFLAP 7.0 License:
