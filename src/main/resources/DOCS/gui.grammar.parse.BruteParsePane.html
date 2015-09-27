@@ -1,0 +1,23 @@
+<!-- The documentation for the LL(1) parsing view. -->
+
+<HTML><HEAD>
+<TITLE>Brute Parser</TITLE>
+</HEAD><BODY>
+
+<H1>Brute Parser</H1>
+
+<CENTER><IMG SRC="images/brute.png" ALT="A sample brute force parse." WIDTH="294" HEIGHT="335" BORDER="1"><BR>Parsing an unrestricted grammar.</CENTER>
+
+<P>JFLAP can not only parse grammars with parse tables, but can attempt a brute force substitution parse as well.  This sort of parse works not only for restricted grammars, but unrestricted grammars as well where there may be terminals and multiple symbols on the left hand side.  A simple unrestricted grammar is shown above.</P>
+
+<P>First, one enters a string to attempt to parse in the text field labeled "Input."  When one has entered the string, one either presses "Start" or types return to begin the process of parsing.  The brute force parser will attempt to parse the string.  The first accepting parse found will be shown.</P>
+
+<P>This method of parsing can take a very long time since it explores every possibility of substitution of variables.  Moreover, since the language accepted by unrestricted grammars is equivalent to Turing recognizable languages, there is no guarantee that the brute force parser will ever stop in the event of an unrestricted brute force parse.  An example is the grammar shown in the example picture above: attempt to parse <VAR>ab</VAR> on that grammar and it will never terminate.  If a parse is taking too long for the user's taste, pressing "Pause" will halt it.  The search can be resumed by pressing "Resume."  If another string is input while the searcher is searching, the original search will be terminated in favor of the new search.</P>
+
+<P>During the course of this search, a small display will indicate how many non-pruned nodes have been added to the tree.  Another (faster changing) value in parentheses will indicate how many nodes were examined in the current subtree.  JFLAP performs some very aggressive pruning to make this most inefficient of routines run as quickly as possible, so there will usually be few nodes added to the tree versus the number of nodes examined.</P>
+
+<P>If a string is rejected, unlike in LR(1) and LL(1) parsing there is no intermediate tree displayed; a simple message will appear below the input field.  If a string is accepted, one repeatedly presses "Step" to show the next phase of the transformation.  The "Input Remaining" shows what input the parser has yet to process, including a terminating <VAR>$</VAR> character.  The "Stack" shows the current contents of the stack.  A message at the bottom of the window will show what is currently happening; in the image above, it shows that we are in the process of replacing <VAR>S</VAR> with <VAR>aSb</VAR>.  JFLAP will highlight the node of the tree that was last processed on the stack.  Whenever an entry in the parse table is used, that entry is highlighted in the table.  One presses this step button until the accepting derivation is shown.</P>
+
+<P>The default view is a non-inverted tree.  In the tree, <FONT COLOR="#CCCC00">yellow nodes</FONT> are the leaf nodes, i.e., terminals that are not substituted in the future.  <FONT COLOR="#009966">Green nodes</FONT> are internal nodes, i.e., non-terminals and terminals that are substituted.  An unrestricted grammar parse has the ability to combine multiple symbols together and substitute them with other symbols; this multiple parentage is achieved by grouping nodes together in a <FONT COLOR="#3366CC">blue</FONT> rounded rectangle and treating that as a single node.  The other view option available is the "Derivation Table": this will show the attempts of the parser to derive the input string from the start variable, and the productions used in the process of derivation.</P>
+
+</BODY></HTML>

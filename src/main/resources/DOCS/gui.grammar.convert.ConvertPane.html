@@ -1,0 +1,37 @@
+<!-- The documentation for conversion of a grammar to some PDA. -->
+
+<HTML><HEAD>
+<TITLE>Grammar to Automaton Converters</TITLE>
+</HEAD><BODY>
+
+<H1>Grammar to Automaton Converters</H1>
+
+<CENTER><P><IMG SRC="images/ll2pda.png" ALT="LL conversion of a grammar to a PDA." WIDTH="434" HEIGHT="269" BORDER="1"><BR>Completed LL Conversion of a Grammar</P></CENTER>
+
+<CENTER><P><IMG SRC="images/lr2pda.png" ALT="LL conversion of a grammar to a PDA." WIDTH="411" HEIGHT="283" BORDER="1"><BR>Completed LR Conversion of a Grammar</P></CENTER>
+
+<P>There are three options to transform a grammar to an automaton: "Convert to PDA (LL)", "Convert to PDA (LR)", and
+    "Convert Right Linear Grammar to FA". Any restricted grammar may be transformed to a PDA by either the LL or LR
+    algorithm, while converting a grammar to an FA requires a right-linear edu.duke.cs.jflap.grammar. Every production
+    in a right-linear grammar has on the right hand side at most one variable, which is to the right of any terminals.</P>
+
+<P>The grammar to PDA interfaces (both LL and LR) are shown above.  In the LL converter, each production on the left side of the window corresponds to a loop transition on the middle state of the automaton.  By selecting productions in the left hand side, if the corresponding transition has already been created it is highlighted.  A small checkbox next to each productions reveals if it has been created yet.</P>
+
+<P>In these sorts of converters, each production in the grammar corresponds to a transition.  There is an automaton editor in which a user enters transitions normally.  If the transition the user enters does not correspond to any production, she is notified and the transition is removed.  Other controls are available as well:</P>
+
+<DL>
+<DT>Show All<DT>
+<DD><P>All required transitions are added.</P></DD>
+
+<DT>Create Selected<DT>
+<DD><P>This will take all selected productions in the left table and add the corresponding transition.</P></DD>
+
+<DT>Done?<DT>
+<DD><P>This will check if anything remains to be done.  If something remains, the user is informed.  If nothing remains, the user is informed to this effect and is then allowed to export the resulting PDA.</P></DD>
+
+<DT>Export<DT>
+<DD><P>Once all the transitions that need to be added are added, and the user has checked whether she is done yet, the user may export and use this newly built automaton with this control.</P></DD>
+</DL>
+
+</BODY></HTML>
+
