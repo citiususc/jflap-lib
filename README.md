@@ -1,13 +1,19 @@
 jflap-lib
 ==============
 
-Jflap-lib is an improved version of JFLAP 7.0 to be used as a library for third-party projects. 
-This is specially useful for building auto-grading tools.
+Jflap-lib is an improved version of JFLAP 7.0 to be used as a library and a command line tool, specially useful for building auto-grading tools.
+
+## What is JFLAP?
+
+JFLAP is an extremely useful software for teaching and learning about formal languages. According to jflap.org, "JFLAP is software for experimenting with formal languages topics including nondeterministic finite automata, nondeterministic pushdown automata, multi-tape Turing machines, several types of grammars, parsing, and L-systems". JFLAP is mantained by Susan H. Rodger et al. from the Department of Computer Science at Duke University.
+
+## What is jflap-lib?
+
+This project is minor modification of the original JFLAP 7.0 plus some code to enhance the current API and to provide command line tools. 
 
 ## Installation
 
-This project relies on [jitpack.io](https://jitpack.io/) instead of maven central to deliver artifacts. If you use maven,
-just add the following snippet to your `pom.xml` file to use the jitpack repository:
+This project relies on [jitpack.io](https://jitpack.io/) instead of maven central to deliver artifacts. If you use maven, just add the following snippet to your `pom.xml` file to use the jitpack repository:
 
 ```xml
 <repository>
@@ -25,6 +31,8 @@ Finally, include jflap-lib as a dependency:
     <version>1.0</version>
 </dependency>
 ```
+
+You can also download the compiled jars from the [release page](../../releases) or from jitpack.io.
 
 ## Example
 
