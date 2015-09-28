@@ -43,8 +43,7 @@ System.out.println(sim.simulateInput("10010"));
 
 ## JFLAP 7.0 License
 
-This project contains the original JFLAP 7.0 source code with some modifications to make it suitable for using as
-a library. Here is a copy of the original JFLAP 7.0 License:
+This project contains the original JFLAP 7.0 source code with some modifications to make it suitable for using it as a library. Here is a copy of the original JFLAP 7.0 License:
 
     JFLAP 7.0 LICENSE
     
