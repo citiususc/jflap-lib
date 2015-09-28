@@ -13,7 +13,7 @@ This project is a minor modification of the original JFLAP 7.0 to replace the us
 
 ## Installation
 
-This project relies on [jitpack.io](https://jitpack.io/) instead of maven central to deliver artifacts. If you use maven, just add the following snippet to your `pom.xml` file to use the jitpack repository:
+This project relies on [jitpack.io](https://jitpack.io/#citiususc/jflap-lib/1.0) instead of maven central to deliver artifacts. If you use maven, just add the following snippet to your `pom.xml` file to use the jitpack repository:
 
 ```xml
 <repository>
@@ -32,7 +32,7 @@ Finally, include jflap-lib as a dependency:
 </dependency>
 ```
 
-You can also download the compiled jars from the [release page](../../releases) or from jitpack.io.
+You can also download the compiled jars from the [release page](../../releases) or from [jitpack.io](https://jitpack.io/#citiususc/jflap-lib/1.0).
 
 ## Example
 
