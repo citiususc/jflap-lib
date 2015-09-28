@@ -6,7 +6,7 @@
 
     <groupId>es.usc.citius.jflap</groupId>
     <artifactId>jflap-lib</artifactId>
-    <version>7.0-SNAPSHOT</version>
+    <version>1.0-SNAPSHOT</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
