@@ -5,7 +5,7 @@ Jflap-lib is an improved version of JFLAP 7.0 to be used as a library and a comm
 
 ## What is JFLAP?
 
-JFLAP is an extremely useful software for teaching and learning about formal languages. According to jflap.org, "JFLAP is software for experimenting with formal languages topics including nondeterministic finite automata, nondeterministic pushdown automata, multi-tape Turing machines, several types of grammars, parsing, and L-systems". JFLAP is mantained by Susan H. Rodger et al. from the Department of Computer Science at Duke University.
+JFLAP is an extremely useful software for teaching and learning about formal languages. According to [jflap.org](jflap.org), "JFLAP is software for experimenting with formal languages topics including nondeterministic finite automata, nondeterministic pushdown automata, multi-tape Turing machines, several types of grammars, parsing, and L-systems". JFLAP is mantained by [Susan H. Rodger](https://users.cs.duke.edu/~rodger/) et al. from the Department of Computer Science at Duke University.
 
 ## What is jflap-lib?
 
