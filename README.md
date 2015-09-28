@@ -9,7 +9,7 @@ JFLAP is an extremely useful software for teaching and learning about formal lan
 
 ## What is jflap-lib?
 
-This project is minor modification of the original JFLAP 7.0 plus some code to enhance the current API and to provide command line tools. 
+This project is a minor modification of the original JFLAP 7.0 to replace the usage of System.out and System.err by a logger facade (slf4j) plus some code to enhance the current API and to provide command line tools. 
 
 ## Installation
 
