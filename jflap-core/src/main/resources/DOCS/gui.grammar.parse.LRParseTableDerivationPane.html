@@ -1,0 +1,63 @@
+<!-- The documentation for the LR(1) parse table builder view. -->
+
+<HTML><HEAD>
+<TITLE>Build LR(1) Parse Table</TITLE>
+</HEAD><BODY>
+
+<H1>Build LR(1) Parse Table</H1>
+
+<CENTER><IMG SRC="images/LRtable.png" ALT="Example LR(1) table." WIDTH="706" HEIGHT="559" BORDER="1"><BR>LR(1) parse table building.</CENTER>
+
+<P>The user may build a LR(1) parse table for a grammar with this operator.  As with LL(1) table building, a full discussion of the method of building an LR(1) parse table is beyond the scope of this discussion.  The procedure followed is more or less the same as the SLR parse table building in the Dragon compiler book.</P>
+
+<P>This shares some similarities with the <A HREF="gui.grammar.parse.LLParseTableDerivationPane.html">LL(1) parse table builder view</A>.  The similarities include the building of the first and follow sets, the operations of controls at the top of the help window and so forth.  That may be helpful as a reference.</P>
+
+<P>NB: In this view, you may resize the views to see things better.  For example, dragging the bar between the sets of items diagram and the parse table will adjust the sizes of both.</P>
+
+<H2>Steps</H2>
+
+<P>The following steps are completed in order to build an LR(1) parse table:</P>
+
+<OL>
+<LI>The user first enters the first and follow sets for each variable.  The interaction that takes place here is identical to that of the LL(1) parse table's first and follow sets construction.
+
+<LI><P><CENTER><IMG SRC="images/LRgoto.png" ALT="Example set of items construction." WIDTH="487" HEIGHT="309" BORDER="1"><BR>A set of items construction.</CENTER></P>
+
+<P>The next step is the construction of the sets of items in a transitional diagram.  What a transitional diagram is and how it is put together is not covered here, as a full description would be prohibitively long.  JFLAP represents a transitional diagram by a FA as shown in the figure at the top of the page, with each state corresponding to a set of items.  The initial set of items corresponds to the initial state, and final states represent terminating sets of items.  The items in a set are shown in the label below a state.</P>
+
+<P>An item is essentially a production with some placeholder character; JFLAP uses an underscore, <VAR>_</VAR>, as this special character.  A production <VAR>A <IMG SRC="entities/rarr.png" WIDTH="16" HEIGHT="7" ALIGN="middle"> BCD</VAR> can produce the four items <VAR>A <IMG SRC="entities/rarr.png" WIDTH="16" HEIGHT="7" ALIGN="middle"> _BCD</VAR>, <VAR>A <IMG SRC="entities/rarr.png" WIDTH="16" HEIGHT="7" ALIGN="middle"> B_CD</VAR>, <VAR>A <IMG SRC="entities/rarr.png" WIDTH="16" HEIGHT="7" ALIGN="middle"> BC_D</VAR>, and <VAR>A <IMG SRC="entities/rarr.png" WIDTH="16" HEIGHT="7" ALIGN="middle"> BCD_</VAR>.  The marker <VAR>_</VAR> in an item represents which symbols have been processed (to the left of the marker) and which have not been processed (to the right of the marker).</P>
+
+<P>During the first part of the sets of items construction, the initial set of items is put together (i.e., <VAR>S' <IMG SRC="entities/rarr.png" WIDTH="16" HEIGHT="7" ALIGN="middle"> S</VAR> and its closure).  To expand that set, use the transition tool (<IMG SRC="../ICON/transition.gif" ALT="" WIDTH="16" HEIGHT="16">), and drag from a set to an empty space in the diagram.  The user is queried as to the symbol to expand the set of items on.  Once the user enters a grammar symbol and JFLAP confirms that the set of items does <DFN>goto</DFN> on that set, a dialog then pops up allowing the user to define the set of items.</P>
+
+<P>The view used for defining a set of items is shown above. The left hand column lists those productions in the
+    edu.duke.cs.jflap.grammar. The right hand column lists items already part of the set. To add an item to the set,
+    click a production in the left hand list. A pop-up menu will appear with all possible placements of the sets of
+    items. To save time, the "Closure" item will take whatever items are selected in the right column, and add all items
+    which comprise the closure of the selected item. The "Finish" button will add all items that should be in the set of
+    items. When "OK" is pressed, the answer will be checked for mistakes. If everything is fine, a new set of items will
+    appear at the point in the empty space that the user initially dragged to.</P>
+
+<P>If the user wishes to define a transition from an existing set of items to another existing set of items, in creating the transition she may drag to the second set rather than to empty space.  This will avoid the bother of defining the second set of items, as JFLAP will assume the set dragged to is that second set.</P>
+
+<P>One uses the attribute tool (<IMG SRC="../ICON/arrow.gif" ALT="" WIDTH="16" HEIGHT="16">) to drag states around, and set final and initial states as per the usual practice when editing.  The attribute tool here does not have the ability to change transitions or set labels.</P>
+
+<LI>Once all sets of items are constructed, the parse table is built.  In the parse table, a blank entry indicates an error in parsing, <VAR>s</VAR> means shift, <VAR>r</VAR> means reduce, a single number means goto that item, and <VAR>acc</VAR> is accept.  To change the content of a cell, click the cell and start typing.  For reduction, the number following the <VAR>r</VAR> is a production number.  The productions are indexed from 0 onward in the order shown in the list on the left.  For example, in the grammar given above <VAR>r1</VAR> means "reduce by <VAR>S <IMG SRC="entities/rarr.png" WIDTH="16" HEIGHT="7" ALIGN="middle"> aSb</VAR>."  To determine the number of a production without counting, hold the mouse over the production, and a tool tip will appear with the production number.  Also, you may hold the mouse over entries over a parse table to get via tool tips descriptions more comprehensible than simple <VAR>r1</VAR> or <VAR>s2</VAR> or what have you.  When the table is completed the user may press "Next."  If there are no errors, one may proceed to parse strings with that table.
+</OL>
+
+<H2>Help</H2>
+
+<P>The style of help that is available for LR(1) table construction is nearly identical to that available for LL(1) table construction: "Do Selected," "Do Step," and "Do All" are all there and work in the same fashion.</P>
+
+<P>In the case of the sets of items construction, the help options available are "Do Step" and "Do All," which will randomly place any set of items.  After the items are placed, one may rearrange them to make the view more aesthetically pleasing, but it will otherwise be immutable.</P>
+
+<H2>Parsing Details</H2>
+
+<P>The top figure shows a completed LR(1) parse table.  Once the table is completed, the user has the option to proceed to parsing strings using the table by pressing the "Parse" button.  The interface for that parsing is explained <A HREF="gui.grammar.parse.LRParsePane.html">here</A>.</P>
+
+<P>There may be at least one cell in the table with more than one rule, and the user may choose which of the rules to use before parsing.  Cells with more than one expansion are highlighted in a sort of <FONT COLOR="#FF9933">sherbet orange</FONT> color.  One may click on these cells, and a pop-up menu will appear allowing the user to select which expansion to use for this cell.  <EM>Note that if clarifying ambiguity becomes necessary, the parse table may not accept the same language as the original grammar since, obviously, the parser will not be aware that alternate shifts/reductions/whatever exist.</EM></P>
+
+<!-- <H2>Example</H2> -->
+
+<!-- <P>Once a parse table is constructed, the user may parse as many strings as he or she wishes.  When parsing, the user enters a string, and then may step through the process of building a parse tree with that string.  During the course of parsing, the entry in the parse table used at that step is highlighted.  The progress of the parse is displayed graphically: the user may view either a non-inverted parse tree, an inverted parse tree, or a string derivation table.  If ever the parser detects an error (i.e., if the string was not accepted), the user is informed and the parser refuses to proceed.  A sample LL(1) parsing is shown in Figure~\ref{fig:llparse}.</P> -->
+
+</BODY></HTML>

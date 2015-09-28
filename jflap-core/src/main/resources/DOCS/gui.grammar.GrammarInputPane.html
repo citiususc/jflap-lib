@@ -1,0 +1,19 @@
+<!-- The documentation for the grammar editor. -->
+
+<HTML><HEAD>
+<TITLE>The Grammar Editor</TITLE>
+</HEAD><BODY>
+
+<H1>The Grammar Editor</H1>
+
+<CENTER><IMG SRC="images/grammar.png" ALT="Grammar editor" WIDTH="232" HEIGHT="185" BORDER="1"></CENTER>
+
+<P>In JFLAP grammars are edited and displayed in a simple table, as shown above.  Each row corresponds to a single production.  The left and right columns correspond to the left and right sides of a production, naturally.  To enter a rule in a particular row, select the leftmost cell of that row and type in the left hand side of the rule.  Then select the rightmost column (the arrow in the middle column will appear automatically) and enter the right hand side of the rule.  Lambda productions have blank right hand sides.  Every symbol in the grammar is assumed to be a single character, with upper case letters as the variables, and all other characters as terminals.  The left hand side of the production in the first row is always assumed to be the start variable.  The table is automatically grown by one row if the last row is ever edited.</P>
+
+<P>In the above picture, for example, the grammar shown has the variable set <VAR>{S, A, B}</VAR>, and the terminal set <VAR>{a, b}</VAR>.  The start variable is <VAR>S</VAR>.  There are the productions <VAR>S <IMG SRC="entities/rarr.png" WIDTH="16" HEIGHT="7" ALIGN="middle"> AB</VAR>, <VAR>A <IMG SRC="entities/rarr.png" WIDTH="16" HEIGHT="7" ALIGN="middle"> a</VAR>, <VAR>B <IMG SRC="entities/rarr.png" WIDTH="16" HEIGHT="7" ALIGN="middle"> bB</VAR>, and <VAR>B <IMG SRC="entities/rarr.png" WIDTH="16" HEIGHT="7" ALIGN="middle"> <IMG SRC="entities/lambda.png" WIDTH="9" HEIGHT="12" ALIGN="middle"></VAR>.  So, the language accepted by this grammar is <VAR>ab<SUP>*</SUP></VAR>, that is, <VAR>a</VAR> followed by zero or more <VAR>b</VAR>s.</P>
+
+<P>Unlike automaton editing, the type of grammar is not defined at the time when editing begins. Rather, many of the
+    operators applied to grammars have conditions that a grammar must satisfy. This is to say that JFLAP will notify the
+    user of constraints upon a grammar when the user attempts to apply an operation to the edu.duke.cs.jflap.grammar.</P>
+
+</BODY></HTML>

@@ -1,0 +1,49 @@
+<!-- The documentation for removing unit productions. -->
+
+<HTML><HEAD>
+<TITLE>Unit Removal</TITLE>
+</HEAD><BODY>
+
+<H1>Unit Removal</H1>
+
+<P ALIGN="center"><IMG SRC="images/transform/unit.png" ALT="Unit production remover" WIDTH="389" HEIGHT="399" BORDER="1"></P>
+
+<P>This action is the second of four steps in transforming a grammar to Chomsky normal form.  The goal is to reform the grammar so that it generates the same language as the original, but has no unit productions.  A unit production is a production with a single variable on the right hand side.  This operator consists of two major steps:</P>
+
+<OL>
+<LI>Drawing the variable dependency graph.</LI>
+<LI>Modifying the grammar to remove unit productions.</LI>
+</OL>
+
+<P>The left side of the interface shows the original edu.duke.cs.jflap.grammar. The functionality of the two toolbars
+    (top and middle) shall be covered later. There are two labels between the top toolbar and the variable dependency
+    graph; the first tells which step the user is currently on and the second indicates how much work remains.</P>
+
+<H2>Variable Dependency Graph</H2>
+
+<P>The first step is to draw a variable dependency graph (<ACRONYM>VDG</ACRONYM>).  As you can see, drawing a variable dependency graph uses the same interface for defining an automaton.  The regular arrow tool is there for moving variable nodes about, and the transition tool is there to define edges.</P>
+
+<P>The directed graph is defined this way: there is a node for every variable, with the variable name displayed inside the node.  The user has the responsibility of defining the edges in the <ACRONYM>VDG</ACRONYM>.  An edge exists from node <VAR>A</VAR> to <VAR>B</VAR> in the <ACRONYM>VDG</ACRONYM> if and only if there is a unit production <VAR>A<IMG SRC="entities/rarr.png" WIDTH="16" HEIGHT="7" ALIGN="middle">B</VAR> in the grammar.</P>
+
+<P>The goal is to relate how variables are "connected" via unit productions, so that when we remove all unit productions we are able to better tell which relationships we need to preserve.  This is discussed more later.</P>
+
+<H2>Reforming the Grammar</H2>
+
+<P>The next step is to reform the edu.duke.cs.jflap.grammar. There are two major parts to this: removing unit
+    productions, and adding new productions to ensure that the grammar accepts the same language.</P>
+
+<P>Note that the interface for grammar editing is exactly the same as the reformation of the grammar with regard to the lambda production removal: we're merely adding and removing different types of productions.  Since the interface is identical, it makes no sense to repeat <A HREF="gui.grammar.transform.LambdaPane.html#grammarInterface">that information</A>.</P>
+
+<P>As far as what rules to add, the idea is that if we have the unit production <VAR>A<IMG SRC="entities/rarr.png" WIDTH="16" HEIGHT="7" ALIGN="middle">B</VAR>, then to generate the same language after removing that unit production we must add <VAR>A<IMG SRC="entities/rarr.png" WIDTH="16" HEIGHT="7" ALIGN="middle"><IMG SRC="entities/alpha.png" WIDTH="9" HEIGHT="9" ALIGN="middle"></VAR> for every <VAR>B<IMG SRC="entities/rarr.png" WIDTH="16" HEIGHT="7" ALIGN="middle"><IMG SRC="entities/alpha.png" WIDTH="9" HEIGHT="9" ALIGN="middle"></VAR> production.  (As a special case, note that we do not add unit productions in this substitution, so that if <VAR>A<IMG SRC="entities/rarr.png" WIDTH="16" HEIGHT="7" ALIGN="middle">B</VAR> and <VAR>B<IMG SRC="entities/rarr.png" WIDTH="16" HEIGHT="7" ALIGN="middle">C</VAR> are in the grammar, we do not add <VAR>A<IMG SRC="entities/rarr.png" WIDTH="16" HEIGHT="7" ALIGN="middle">C</VAR>.)  However, in addition to this, if there are <VAR>B<IMG SRC="entities/rarr.png" WIDTH="16" HEIGHT="7" ALIGN="middle">C</VAR> and <VAR>C<IMG SRC="entities/rarr.png" WIDTH="16" HEIGHT="7" ALIGN="middle">D</VAR> unit productions, we also add <VAR>A<IMG SRC="entities/rarr.png" WIDTH="16" HEIGHT="7" ALIGN="middle"><IMG SRC="entities/beta.png" WIDTH="7" HEIGHT="15" ALIGN="middle"></VAR> and <VAR>A<IMG SRC="entities/rarr.png" WIDTH="16" HEIGHT="7" ALIGN="middle"><IMG SRC="entities/gamma.png" WIDTH="9" HEIGHT="12" ALIGN="middle"></VAR> for every <VAR>C<IMG SRC="entities/rarr.png" WIDTH="16" HEIGHT="7" ALIGN="middle"><IMG SRC="entities/beta.png" WIDTH="7" HEIGHT="15" ALIGN="middle"></VAR> and <VAR>D<IMG SRC="entities/rarr.png" WIDTH="16" HEIGHT="7" ALIGN="middle"><IMG SRC="entities/gamma.png" WIDTH="9" HEIGHT="12" ALIGN="middle"></VAR>.</P>
+
+<P>This is where the <ACRONYM>VDG</ACRONYM> comes in handy: if <VAR>A</VAR> is an ancestor of <VAR>B</VAR> in the <ACRONYM>VDG</ACRONYM> (even a non-immediate ancestor!), then for every <VAR>B<IMG SRC="entities/rarr.png" WIDTH="16" HEIGHT="7" ALIGN="middle"><IMG SRC="entities/alpha.png" WIDTH="9" HEIGHT="9" ALIGN="middle"></VAR> we add <VAR>A<IMG SRC="entities/rarr.png" WIDTH="16" HEIGHT="7" ALIGN="middle"><IMG SRC="entities/alpha.png" WIDTH="9" HEIGHT="9" ALIGN="middle"></VAR>.</P>
+
+<P>Note that if we select the unit production <VAR>A<IMG SRC="entities/rarr.png" WIDTH="16" HEIGHT="7" ALIGN="middle">B</VAR> in the left grammar view, and press "Complete Selected", this will add all <VAR>A<IMG SRC="entities/rarr.png" WIDTH="16" HEIGHT="7" ALIGN="middle"><IMG SRC="entities/alpha.png" WIDTH="9" HEIGHT="9" ALIGN="middle"></VAR> productions for every <VAR>B<IMG SRC="entities/rarr.png" WIDTH="16" HEIGHT="7" ALIGN="middle"><IMG SRC="entities/alpha.png" WIDTH="9" HEIGHT="9" ALIGN="middle"></VAR> production currently in the grammar that is not already part of the grammar.</P>
+
+<P>Note that in the example given in the figure above, we have the rules <VAR>B<IMG SRC="entities/rarr.png" WIDTH="16" HEIGHT="7" ALIGN="middle">a</VAR> and <VAR>B<IMG SRC="entities/rarr.png" WIDTH="16" HEIGHT="7" ALIGN="middle">b</VAR>, and since both <VAR>A</VAR> and <VAR>S</VAR> are ancestors of <VAR>B</VAR>, both variables now have rules where they directly derive <VAR>a</VAR> and <VAR>b</VAR>.</P>
+
+<H2>Help & Controls</H2>
+
+<P>The "Do Step" button will complete the current step only (either defining the edges in the <ACRONYM>VDG</ACRONYM>, or reforming the grammar).  "Do All" will complete both steps.  "Do Selected" is available only when the grammar is being edited; when pressed, any selected unit productions in the grammar editing table will be deleted, and replaced with the appropriate productions.  "Proceed" and "Export" are available only when the grammar is completed: "Export" will take this reformed grammar and put it in its own window, while "Proceed" will take the reformed grammar and go to the next phase of the CNF conversion, <A HREF="gui.grammar.transform.UselessPane.html">useless production removal</A>.</P>
+
+</BODY></HTML>

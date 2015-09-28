@@ -1,0 +1,56 @@
+<!-- The documentation for the minimization of a DFA view. -->
+
+<HTML><HEAD>
+<TITLE>Minimize DFA</TITLE>
+</HEAD><BODY>
+
+<H1>Minimize DFA</H1>
+
+<P>This operation converts a DFA to another DFA that is minimized (i.e., has the least number of states possible while still accepting the same language).  The process involves building a tree of groups of states that ``split'' on terminals.  Once there are no sets of states that cannot be split any further, states in the same set are deemed equivalent.  The user then proceeds to build a minimized DFA using these groups.</P>
+
+<H2>Splitting Groups</H2>
+
+<CENTER><IMG SRC="images/minimize-dfa.png" ALT="Minimization of a DFA." WIDTH="521" HEIGHT="364" BORDER="1"><BR>Splitting Groups</CENTER>
+
+<P>In the view, there is a toolbar along the top.  To the left there is the original DFA, with the addition of the trap state (if necessary).  To the right there is the tree where the set of distinguishable groups is determined.</P>
+
+<P>When the tool starts out, there are two major groups: non-final and final states.  The current groups are those groups in the leaf nodes.  The union of all current groups is the set of all states, and all current groups are state disjoint.</P>
+
+<P>A group is split on a terminal if the states in the group have transitions on this terminal to different groups.  If all the transitions are to the same group, then there is no split on this group based on this terminal. If a group splits, it may split two or more ways.  A group may split two or more ways.</P>
+
+<P>Take the example given in the screen shot above.  We start with the groups <VAR>{0,1,3,4}</VAR> and <VAR>{2}</VAR>.  Notice that group <VAR>{0,1,3,4}</VAR> splits on <VAR>a</VAR> because while states <VAR>{0,4}</VAR> go to states in <VAR>{0,1,3,4}</VAR>, states <VAR>{1,3}</VAR> go to states in the group <VAR>{2}</VAR>.  So, this group splits on <VAR>a</VAR> into the two groups <VAR>{0,4}</VAR> and <VAR>{1,3}</VAR>.  Then, we note that group <VAR>{0,4}</VAR> splits on the terminal <VAR>a</VAR> again, since <VAR>q0</VAR> goes to <VAR>q3</VAR> which is in group <VAR>{1,3}</VAR>, while <VAR>q4</VAR> goes to itself, which is in the current group <VAR>{0,4}</VAR>.  So, <VAR>{0,4}</VAR> splits on <VAR>a</VAR> into the two groups <VAR>{0}</VAR> and <VAR>{4}</VAR>.  (We also had the option of splitting <VAR>{0,4}</VAR> on <VAR>b</VAR>.)</P>
+
+<P>Hopefully the interface is as straightforward as the theory.  The tool bar along the top of the interface applies actions to the currently selected group.  A group is selected if it is darkened.  To select a group, click its node in the tree.</P>
+
+<DL>
+<DT>Set Terminal</DT>
+<DD><P>This begins the process of splitting a group on a terminal.  In order to split a node on a terminal, the terminal to split must first be entered.  Once the user selects a group she may press this button, and enter a terminal to split the group on.  (If the terminal does not split the group, the user is informed.)</P>
+
+<P>After this is done, the process for splitting a group is started.  Since splitting a group implies that at least two new groups will be created, two empty nodes appear as children to this group's node.  To add a state to a group, select one of these children, and click a state in the left display.  (The states in the currently selected group appear as selected states in the left DFA display.  To remove a state from a group, similarly, you click the state again.)</P></DD>
+
+<DT>Auto Partition</DT>
+<DD><P>This will automatically split a group on some terminal.  If the terminal has not yet been set on this node, a terminal that splits this group is randomly chosen.  If the terminal to split this node's group on has already been chosen through "Set Terminal", then that terminal is used.</P></DD>
+
+<DT>Complete Subtree</DT>
+<DD><P>This will split the current group, and all children groups of this group, and their groups, and their groups too, until in the subtree rooted at the currently selected has no groups that can be distinguished further.</P></DD>
+
+<DT>Check Node</DT>
+<DD><P>If one manually splits a group, to end the process of splitting a group, select the group you had split, and press "Check Node".  This will check the expansion, and report mistakes.  If there are no mistakes, the work shall be approved.</P></DD>
+
+<DT>Add Child</DT>
+<DD><P>While the "Set Terminal" operation will automatically add two children to a node, it is possible that a group splits into more than two groups.  To add another subgroup to the group you're splitting, press this button while the group you're splitting is selected.</P></DD>
+
+<DT>Remove</DT>
+<DD><P>If the user discovers that a child added is unnecessary, she may select and remove it with this button.</P></DD>
+
+<DT>Finish</DT>
+<DD><P>If all the groups on the leaves cannot be distinguished further, this stops the process of building distinguishable groups, and moves to the operation of defining the final minimized DFA.</P></DD>
+</DL>
+
+<H2>Building the Minimized DFA</H2>
+
+<CENTER><IMG SRC="images/minimize-dfa2.png" ALT="Building the final DFA." WIDTH="560" HEIGHT="311" BORDER="1"><BR>Minimized DFA Building</CENTER>
+
+<P>Once the "Finish" operation confirms that the tree is fully built, the final DFA is built.  The view will be replaced with an editor view, where the user builds the DFA.  In the minimized DFA, each indistinguishable group of states from the original DFA is shown in the label.  The group of states that include the trap state are not considered part of the minimized DFA: they are by definition unnecessary.  Creating transitions is just as it is during regular FA building, with the exception that if the user adds a transition that is not part of the minimized DFA, she is notified and the transition is not added.  The "Hint" button will add some transition that needs to be added.  "Complete" will add all transitions that need to be added.  "Done?" will check the minimized DFA to see if it is complete.  If it is complete, it will be exported to another window.</P>
+
+</BODY></HTML>

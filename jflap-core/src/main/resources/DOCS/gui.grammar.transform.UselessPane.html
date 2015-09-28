@@ -1,0 +1,49 @@
+<!-- The documentation for removing useless productions. -->
+
+<HTML><HEAD>
+<TITLE>Useless Removal</TITLE>
+</HEAD><BODY>
+
+<H1>Useless Removal</H1>
+
+<!--[[P]][[STRONG]]At present there is an interesting problem with the backend of the useless production remover: The grammar it winds up with will accept the same language as the original, but some useless productions may not wind up being removed.[[/STRONG]]  Unfortunately it is a theoretical problem rather than an actual bug, so this may be more or less easy to fix.[[/P]]-->
+
+<!--[[P ALIGN="center"]][[IMG SRC="images/transform/useless.png" ALT="Unit production remover" WIDTH="389" HEIGHT="399" BORDER="1"]][[/P]]-->
+
+<P>This action is the third of four steps in transforming a grammar to Chomsky normal form.  The goal is to reform the grammar so that it generates the same language as the original, but any useless productions are removed.</P>
+
+<OL>
+<LI>Determining which variables derive terminals.</LI>
+<LI>Drawing the variable dependency graph.</LI>
+<LI>Modifying the grammar to remove these useless productions.</LI>
+</OL>
+
+<P>The left side of the interface shows the original edu.duke.cs.jflap.grammar. The functionality of the two toolbars
+    (top and middle) shall be covered later. There are two labels between the top toolbar and the variable dependency
+    graph; the first tells which step the user is currently on, the second indicates how much work remains.</P>
+
+<H2>Terminal Deriving Variables</H2>
+
+<P>The first step is to determine which variables are even capable of deriving terminals.  One can have those variables that derive only terminals, and then repeatedly find variables that have productions with only those variables and terminals, and repeat this process until no terminals are added.</P>
+
+<P>The interface for the user to input these variables is identical to the interface for the user to input which variables derive lambda in the lambda production remover, so you are referred <A HREF="gui.grammar.transform.LambdaPane.html#lambdaInterface">there</A> for information about that interface.</P>
+
+<H2>Variable Dependency Graph</H2>
+
+<P>The second step is to draw a variable dependency graph (<ACRONYM>VDG</ACRONYM>) among those variables that derive terminals.  As you can see, drawing a variable dependency graph uses the same interface for defining an automaton.  The regular arrow tool is there for moving variable nodes about, and the transition tool is there to define edges.  The initial variable in the grammar is represented as an initial state in an automaton.</P>
+
+<P>The directed graph is defined this way: there is a node for every variable that derives a terminal, with the variable name displayed inside the node.  The user has the responsibility of defining the edges in the <ACRONYM>VDG</ACRONYM>.  An edge exists from node <VAR>A</VAR> to <VAR>B</VAR> in the <ACRONYM>VDG</ACRONYM> if and only if there is a production <VAR>A<IMG SRC="entities/rarr.png" WIDTH="16" HEIGHT="7" ALIGN="middle"><IMG SRC="entities/alpha.png" WIDTH="9" HEIGHT="9" ALIGN="middle">B<IMG SRC="entities/beta.png" WIDTH="7" HEIGHT="15" ALIGN="middle"></VAR> in the grammar, i.e., <VAR>B</VAR> appears in the right hand side of some production of <VAR>A</VAR>.  The goal is to relate how variables depend on each other.</P>
+
+<H2>Reforming the Grammar</H2>
+
+<P>The last step is to reform the edu.duke.cs.jflap.grammar. (Those rules with variables that do not derive terminals
+    are automatically removed and will not appear.) In this case, one need only remove those productions that are
+    useless.</P>
+
+<P>At this stage, a useless production is a production with some variable <VAR>V</VAR>, where <VAR>V</VAR> in the VDG does not have the start variable's node as an ancestor.  The deletion of those productions is handled just as it is when deleting lambda productions in <A HREF="gui.grammar.transform.LambdaPane.html#grammarInterface">the lambda production remover's grammar interface</A>, so look there for help with the interface.</P>
+
+<H2>Help & Controls</H2>
+
+<P>The "Do Step" button will complete the current step only (either detecting terminal deriving variables, or defining the VDG, or deleting useless productions).  "Do All" will complete both steps.  "Proceed" and "Export" are available only when all useless productions have been removed: "Export" will take this reformed grammar and put it in its own window, while "Proceed" will take the reformed grammar and go to the next and last phase of the CNF conversion, <A HREF="gui.grammar.transform.ChomskyPane.html">Chomsky normal form converter</A>.</P>
+
+</BODY></HTML>

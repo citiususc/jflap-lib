@@ -1,0 +1,15 @@
+<!-- The documentation for the comparison of language operator. -->
+
+<HTML><HEAD>
+<TITLE>Compare Equivalence</TITLE>
+</HEAD><BODY>
+
+<H1>Compare Equivalence</H1>
+
+<P>This compares two FSAs to see if they accept the same language.  This operator is unusual in that it requires that two DFAs be active in JFLAP.  When invoked in the environment of one FSA, the user may select another open FSA; the user will then be informed as to whether or not these two FSAs accept the same language.</P>
+
+<P>To make this more clear, suppose there are three DFAs open, <VAR>A</VAR>, <VAR>B</VAR>, and <VAR>C</VAR>.  Within <VAR>A</VAR>s window, the user invokes "Compare Equivalence."  A small dialog pops up asking whether to run the comparison on <VAR>B</VAR> or <VAR>C</VAR>.  If the user chooses <VAR>B</VAR> (WLOG, naturally), the DFAs <VAR>A</VAR> and <VAR>B</VAR> are tested to see if they accept the same language.</P>
+
+<P>As a point of interest, the algorithm works by first converting the FSAs to DFAs, then minimizing both.  Since there is a bijection between the set of minimized FSAs and the set of languages accepted by FSAs, running a simple graph comparison algorithm is enough to determine if they are equivalent.  This comparison is run, and the user is then told if the original machines were or were not equivalent.</P>
+
+</BODY></HTML>

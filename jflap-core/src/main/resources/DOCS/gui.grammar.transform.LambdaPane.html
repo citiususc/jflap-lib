@@ -1,0 +1,65 @@
+<!-- The documentation for removing lambda productions. -->
+
+<HTML><HEAD>
+<TITLE>Lambda Removal</TITLE>
+</HEAD><BODY>
+
+<H1>Lambda Removal</H1>
+
+<P ALIGN="center"><IMG SRC="images/transform/lambda.png" ALT="Lambda production remover" WIDTH="434" HEIGHT="297" BORDER="1"></P>
+
+<P>This action is the first of four steps in transforming a grammar to Chomsky normal form.  The goal is to reform the grammar so that it generates the same language, but has no lambda productions.  The goal is to have no rule in the grammar derives the empty string.  The requirement is that the start variable cannot derive lambda.  This operator consists of two major steps:</P>
+
+<OL>
+<LI>The selection of variables that derive lambda.</LI>
+<LI>The modification of the edu.duke.cs.jflap.grammar.</LI>
+</OL>
+
+<P>The left side of the interface shows the original edu.duke.cs.jflap.grammar. The functionality of the two toolbars
+	shall be covered later. There are three labels between the two toolbars; the first tells which step the user is
+	currently on, the second indicates how much work remains, and the third indicates which variables derive lambda.</P>
+
+<H2>Selection of Lambda Variables</H2>
+
+<P>The first step is to select those variables that derive lambda.  In the example grammar given in the picture above, obviously <VAR>B</VAR> and <VAR>C</VAR> derive lambda, but so does <VAR>A</VAR> because of the rule <VAR>A<IMG SRC="entities/rarr.png" WIDTH="16" HEIGHT="7" ALIGN="middle">BC</VAR>.</P>
+
+<A NAME="lambdaInterface"><P>The user indicates a variable by clicking in the grammar table to the left (which holds the original grammar); the left hand side of the production clicked is assumed to be the desired variable.  For example, if the user clicks the production <VAR>A<IMG SRC="entities/rarr.png" WIDTH="16" HEIGHT="7" ALIGN="middle">BCD</VAR>, then JFLAP believes the user is indicating the variable <VAR>A</VAR>.</P></A>
+
+<P>In order to complete this step, the user must indicate all variables that derive lambda.  As the variables are selected (and verified to be correct), they will appear in the third label that shows which variables derive lambda.  The second label will indicate errors to the user if any are made.</P>
+
+<H2>Reforming the Grammar</H2>
+
+<P>The next step is to reform the edu.duke.cs.jflap.grammar. There are two major parts to this: removing lambda
+	productions, and adding new productions to ensure that the grammar accepts the same language.</P>
+
+<A NAME="grammarInterface"><P>To edit the grammar, use the grammar view in the lower right.  Editing is like it is in the regular grammar view, with the exception that if any production is added that is not part of the reformed view, the user will be notified and it will be added.  Additionally, existing productions cannot be edited: only the last row may be edited.  To remove lambda productions, select those productions you wish to remove, and click the "Delete" button.</P></A>
+
+<P>As far as what rules to add, if <VAR>A<IMG SRC="entities/rarr.png" WIDTH="16" HEIGHT="7" ALIGN="middle">BCDB</VAR> is in the grammar and <VAR>B</VAR> and <VAR>C</VAR> derive lambda, the user would add the seven productions that consist of almost all permutations of the absence and presence of the variables that derive lambda, i.e., the first <VAR>B</VAR>, <VAR>C</VAR> and the second <VAR>B</VAR>.  These are shown in the table below.  (There are seven and not eight because the permutation where they are all there is already part of the grammar.  Note that the variables are not really being deleted so much as they are being substituted with the empty string.)</P>
+
+<TABLE CELLPADDING="5" ALIGN="center">
+	<TR>
+		<TD><VAR>A<IMG SRC="entities/rarr.png" WIDTH="16" HEIGHT="7" ALIGN="middle">D</VAR></TD>
+		<TD><VAR>A<IMG SRC="entities/rarr.png" WIDTH="16" HEIGHT="7" ALIGN="middle">DB</VAR></TD>
+		<TD><VAR>A<IMG SRC="entities/rarr.png" WIDTH="16" HEIGHT="7" ALIGN="middle">CD</VAR></TD>
+		<TD><VAR>A<IMG SRC="entities/rarr.png" WIDTH="16" HEIGHT="7" ALIGN="middle">CDB</VAR></TD>
+	</TR>
+	<TR>
+		<TD><VAR>A<IMG SRC="entities/rarr.png" WIDTH="16" HEIGHT="7" ALIGN="middle">BD</VAR></TD>
+		<TD><VAR>A<IMG SRC="entities/rarr.png" WIDTH="16" HEIGHT="7" ALIGN="middle">BDB</VAR></TD>
+		<TD><VAR>A<IMG SRC="entities/rarr.png" WIDTH="16" HEIGHT="7" ALIGN="middle">BCD</VAR></TD>
+		<TD><VAR></VAR></TD>
+	</TR>
+	<CAPTION ALIGN="top">
+		Productions added for <VAR>A<IMG SRC="entities/rarr.png" WIDTH="16" HEIGHT="7" ALIGN="middle">BCDB</VAR>.
+	</CAPTION>
+</TABLE>
+
+<P>Adding these permutations of rules can become tedious.  If there is a rule which implies the addition of a large number of permutations, the user may select the rule in the left hand-side table, and press the "Complete Selected" control.  This will make the additions implied by that production for the user.</P>
+
+<P>There are a few caveats.  First, no rule is added twice.  If we had the production <VAR>A<IMG SRC="entities/rarr.png" WIDTH="16" HEIGHT="7" ALIGN="middle">BB</VAR> with <VAR>B</VAR> deriving lambda, then the user would add the rule <VAR>A<IMG SRC="entities/rarr.png" WIDTH="16" HEIGHT="7" ALIGN="middle">B</VAR> only once.  Moreover, if <VAR>A<IMG SRC="entities/rarr.png" WIDTH="16" HEIGHT="7" ALIGN="middle">B</VAR> just happened to be part of the grammar anyway, we would not add it at all.  Additionally, in case it is not obvious, the user does not add lambda rules, so she would not add <VAR>A<IMG SRC="entities/rarr.png" WIDTH="16" HEIGHT="7" ALIGN="middle"><IMG SRC="entities/lambda.png" WIDTH="9" HEIGHT="12" ALIGN="middle"></VAR>.</P>
+
+<H2>Help & Controls</H2>
+
+<P>The "Do Step" button will complete the current step only (either detecting lambda variables, or reforming the grammar).  "Do All" will complete both steps.  The "Delete" and "Complete Selected" are covered in the section about reforming the grammar.  "Proceed" and "Export" are available only when the grammar is completed: "Export" will take this reformed grammar and put it in its own window, while "Proceed" will take the reformed grammar and go to the next phase of the CNF conversion, <A HREF="gui.grammar.transform.UnitPane.html">unit production removal</A>.</P>
+
+</BODY></HTML>

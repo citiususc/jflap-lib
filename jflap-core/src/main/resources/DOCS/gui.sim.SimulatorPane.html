@@ -1,0 +1,48 @@
+<!-- The documentation for the automaton input step view. -->
+
+<HTML><HEAD>
+<TITLE>The Step Simulators</TITLE>
+</HEAD><BODY>
+
+<H1>The Step Simulators</H1>
+
+<P ALIGN="center"><IMG SRC="images/closure.png" ALT="" WIDTH="600" HEIGHT="494"></P>
+<!-- WIDTH="824" HEIGHT="678" -->
+
+<P>These operators, "Step with Closure", "Step by State", and "Step" involve simulating input on an automaton.  The first two, by state and with closure, are available only for FAs and PDAs.  The last, simply "step," is available only for Turing machines.  There are three major parts to the view.  The top view displays the automaton, the middle view displays configurations, and the bottom view is a control panel.  A sample run is displayed in the above picture.</P>
+
+<P>Configurations are a snapshot of execution on an automaton at a particular point in time.  In the case of a FA, a configuration has as attributes what input remains to be read, and the current state.  In a PDA a configuration also includes the current contents of the stack.  A Turing machine configuration includes the current state, as well as the current contents and position of a tape.  The two-tape Turing machine is similar, but naturally it displays two tapes instead of one.  The "step" action in the control panel progresses existing configurations.</P>
+
+<P>In the display of the automaton, JFLAP highlights states to indicate that there is a configuration currently on that state.  Configurations are shown in the configuration view; a regular configuration is displayed normally, accept configurations are <FONT COLOR="#00CC00">green</FONT>, reject configurations are <FONT COLOR="#CC0000">red</FONT>, and freeze configurations are <FONT COLOR="#0000CC">blue</FONT>.  One may select and deselect configurations by clicking on them.  The bottom control panel allows the user to change the state of the machine.</P>
+
+<P>For Turing class machines, the input serves as the initial contents of the tape(s).  The initial tape position is assumed to be the position of the leftmost character of the input.</P>
+
+<H2>The Control Panel</H2>
+
+<P>Along the bottom of the step simulator views there is a control panel.</P>
+
+<DL>
+<DT>Step</DT>
+<DD>This is the primary operation.  This will take all of the configurations available (aside from those that are frozen), and, if it is possible to proceed on any transition from the state of that configuration, it will do so.  For example, for a PDA, if a configuration has next symbol on input is <VAR>a</VAR>, and top of the stack has <VAR>b</VAR>, and transition which reads <VAR>a</VAR> and pops <VAR>b</VAR> from the current state in the transition, that configuration will proceed on that transition.  If we are able to proceed on more than one transition from the current state of the configuration, then multiple configurations are generated (nondeterminism).  On the other hand, if we are not able to expand this configuration at all, then it is rejected.</DD>
+
+<DT>Reset</DT>
+<DD>This will force the step back to its virgin state when the step simulator first appeared.</DD>
+
+<DT>Freeze</DT>
+<DD>For a selected configuration, this will freeze a configuration.  A frozen configuration persists in its original form when "step" is pressed, and is not expanded.  You cannot freeze a halting configuration (either accept or reject).</DD>
+
+<DT>Thaw</DT>
+<DD>This is the inverse operation for freeze, i.e., when pressed, any selected frozen configurations will become normal once again.</DD>
+
+<DT>Trace</DT>
+<DD>Configurations are generated from other configurations.  When this button is pressed, for any selected configuration this will pop up a small window showing the series of configurations that led to this configuration.</DD>
+
+<DT>Remove</DT>
+<DD>Any selected configuration will be removed.</DD>
+</DL>
+
+<H2>Step by Closure vs. Step by State</H2>
+
+<P>There are new stepping options available.  The "Step by Closure" and "Step by State" are new in this version, and are available only for FAs and PDAs.  Under "Step by Closure," when a configuration proceeds to a state $q_i$, configurations are created for all states reachable on lambda transitions from $q_i$ (hence the name, step by closure).  This is the situation illustrated in the figure at the top of the page.  The "Step by State" option works as it did in the old version of JFLAP, without taking the closure.  Turing machines do not have lambda transitions, and so have the single "Step" option available as there is no opportunity to ever take the closure of a state.</P>
+
+</BODY></HTML>

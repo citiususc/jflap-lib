@@ -1,0 +1,6 @@
+Whenever the user chooses "Help" from the help menu, JFLAP searches for a
+URL based on the class name of the currently active view in the
+environment.  (The help function has other options available as well.)  
+Therefore, to add help for a view that is an instance of a class or
+subclass of gui.wingdoodle.ClassBoy, merely add
+"gui.wingdoodle.ClassBoy.html" to this directory.

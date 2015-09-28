@@ -1,0 +1,17 @@
+<!-- The documentation for the LR(1) parsing view. -->
+
+<HTML><HEAD>
+<TITLE>LL(1) Parsing</TITLE>
+</HEAD><BODY>
+
+<H1>LR(1) Parsing</H1>
+
+<CENTER><IMG SRC="images/LRparse.png" ALT="A sample LR(1) parse." WIDTH="517" HEIGHT="406" BORDER="1"><BR>In the middle of a sample LR(1) parsing.</CENTER>
+
+<P>Before LR(1) parsing can take place, first an LR(1) parse table must be defined according to the operations defined <A HREF="gui.grammar.parse.LRParseTableDerivationPane.html">here</A>.</P>
+
+<P>The interaction relevant to the parsing of strings in LR(1) parsing is identical to the parsing of strings in LL(1) parsing.  See the notes on <A HREF="gui.grammar.parse.LRParsePane.html">LL(1) parsing</A> to learn about the interface.</P>
+
+<P>The LR(1) parsing algorithm is, of course, very different from LL(1): the stack is used differently, and the parse is bottom-up rather than top-down as in LL(1) parsing.  In addition, when reducing according to a production, the production is highlighted.  However, the interface is identical.</P>
+
+</BODY></HTML>
