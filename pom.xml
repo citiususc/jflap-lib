@@ -7,7 +7,7 @@
     <groupId>es.usc.citius.jflap</groupId>
     <artifactId>jflap-lib</artifactId>
     <packaging>pom</packaging>
-    <version>1.1</version>
+    <version>1.2-SNAPSHOT</version>
     <modules>
         <module>jflaplib-core</module>
         <module>jflaplib-cli</module>
