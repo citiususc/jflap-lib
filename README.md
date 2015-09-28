@@ -22,7 +22,7 @@ Finally, include jflap-lib as a dependency:
 <dependency>
     <groupId>com.github.citiususc</groupId>
     <artifactId>jflap-lib</artifactId>
-    <version>7.0</version>
+    <version>1.0</version>
 </dependency>
 ```
 
