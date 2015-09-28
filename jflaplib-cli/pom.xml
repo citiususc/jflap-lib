@@ -9,12 +9,12 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>jflap-cli</artifactId>
+    <artifactId>jflaplib-cli</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>es.usc.citius.jflap</groupId>
-            <artifactId>jflap-core</artifactId>
+            <artifactId>jflaplib-core</artifactId>
             <version>${project.version}</version>
         </dependency>
 
