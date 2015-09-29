@@ -40,7 +40,7 @@ public class Cmd {
         return (FiniteStateAutomaton)new XMLCodec().decode(file, null);
     }
 
-    @Command(name = "equal", description = "Check if two FSA accept the same language")
+    @Command(name = "equivalent", description = "Check if two FSA accept the same language")
     public static class EqualAutomata implements Runnable {
 
         @Arguments(description = "Path of the two FSA to be compared")
@@ -51,11 +51,11 @@ public class Cmd {
             FiniteStateAutomaton a1 = loadAutomaton(automatons.get(0));
             FiniteStateAutomaton a2 = loadAutomaton(automatons.get(1));
             boolean equal = new FSAEqualityChecker().equals(a1, a2);
-            System.out.println("equal?: " + equal);
+            System.out.println("equivalent?: " + equal);
         }
     }
 
-    @Command(name = "simulate", description = "Runs the automaton on the input string")
+    @Command(name = "run", description = "Runs the automaton on the input string")
     public static class SimulateAutomaton implements Runnable {
 
         @Arguments(
