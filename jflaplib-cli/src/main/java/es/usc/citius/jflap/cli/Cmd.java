@@ -31,32 +31,38 @@ public class Cmd {
         parser.parse(args).run();
     }
 
-    private static FiniteStateAutomaton loadAutomaton(String path){
-        return loadAutomaton(new File(path));
-    }
 
-    private static FiniteStateAutomaton loadAutomaton(File file){
-        if (!file.isFile()) throw new RuntimeException(file.getAbsolutePath() + " does not exist");
-        return (FiniteStateAutomaton)new XMLCodec().decode(file, null);
+    public static abstract class BaseCommand implements Runnable {
+
+        @Override
+        public void run() {
+            try {
+                process();
+            } catch (Exception e){
+                System.err.println(e.getMessage());
+            }
+        }
+
+        protected abstract void process();
     }
 
     @Command(name = "equivalent", description = "Check if two FSA accept the same language")
-    public static class EqualAutomata implements Runnable {
+    public static class EqualAutomata extends BaseCommand {
 
         @Arguments(description = "Path of the two FSA to be compared")
         public List<String> automatons;
 
         @Override
-        public void run() {
-            FiniteStateAutomaton a1 = loadAutomaton(automatons.get(0));
-            FiniteStateAutomaton a2 = loadAutomaton(automatons.get(1));
+        public void process() {
+            FiniteStateAutomaton a1 = IO.loadAutomaton(automatons.get(0));
+            FiniteStateAutomaton a2 = IO.loadAutomaton(automatons.get(1));
             boolean equal = new FSAEqualityChecker().equals(a1, a2);
             System.out.println("equivalent?: " + equal);
         }
     }
 
     @Command(name = "run", description = "Runs the automaton on the input string")
-    public static class SimulateAutomaton implements Runnable {
+    public static class SimulateAutomaton extends BaseCommand {
 
         @Arguments(
                 description = "JFLAP (*.jff) automaton file and input to be tested",
@@ -65,10 +71,10 @@ public class Cmd {
         public List<String> arguments;
 
         @Override
-        public void run() {
+        public void process() {
             String path = arguments.get(0);
             String input = arguments.get(1);
-            FiniteStateAutomaton automaton = loadAutomaton(path);
+            FiniteStateAutomaton automaton = IO.loadAutomaton(path);
             // Load a simulator to test the automaton
             AutomatonSimulator sim = SimulatorFactory.getSimulator(automaton);
             if (sim == null) throw new RuntimeException("Cannot load an automaton simulator for " + automaton.getClass());
