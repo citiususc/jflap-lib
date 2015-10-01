@@ -34,7 +34,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>es.usc.citius.jflap.cli.Cmd</mainClass>
+                            <mainClass>es.usc.citius.jflap.cli.CommandLine</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
