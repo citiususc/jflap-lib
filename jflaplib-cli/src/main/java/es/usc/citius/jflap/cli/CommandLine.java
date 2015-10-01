@@ -67,7 +67,7 @@ public class CommandLine {
             if (sim == null) throw new RuntimeException("Cannot load an automaton simulator for " + automaton.getClass());
             // Test the automaton with an input
             boolean accept = sim.simulateInput(input);
-            System.out.println(file.getPath() + "; input: " + input + "; accept?: " + accept);
+            System.out.println("accept?: " + accept);
         }
     }
 
