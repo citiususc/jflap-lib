@@ -32,6 +32,10 @@ public class CommandLine {
         return file;
     }
 
+    private static File file(String file){
+        return new File(file);
+    }
+
     @Parameters(separators = "=", commandDescription = "Check if two FSA accept the same language")
     public static class EquivalentCommand implements Runnable {
 
@@ -40,8 +44,8 @@ public class CommandLine {
 
         @Override
         public void run() {
-            File automaton1 = checked(new File(files.get(0)));
-            File automaton2 = checked(new File(files.get(1)));
+            File automaton1 = checked(file(files.get(0)));
+            File automaton2 = checked(file(files.get(1)));
             FiniteStateAutomaton a1 = IO.loadAutomaton(automaton1);
             FiniteStateAutomaton a2 = IO.loadAutomaton(automaton2);
             boolean equal = new FSAEqualityChecker().equals(a1, a2);
