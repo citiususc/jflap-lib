@@ -43,9 +43,7 @@ public class CommandLine {
         @Override
         public void run() {
             FiniteStateAutomaton a = IO.loadAutomaton(file.get(0));
-            if (!FSAToRegularExpressionConverter.isConvertable(a)){
-                FSAToRegularExpressionConverter.convertToSimpleAutomaton(a);
-            }
+            FSAToRegularExpressionConverter.convertToSimpleAutomaton(a);
             String re = FSAToRegularExpressionConverter.convertToRegularExpression(a);
             System.out.println(re);
         }
