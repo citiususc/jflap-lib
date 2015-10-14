@@ -22,6 +22,7 @@ package edu.duke.cs.jflap.file;
 
 import edu.duke.cs.jflap.file.xml.*;
 import java.io.*;
+import java.net.URI;
 import java.util.Map;
 import javax.xml.parsers.*;
 
@@ -50,7 +51,27 @@ public class XMLCodec extends Codec {
         if (f.isDirectory()) return true;
         if (f.getName().endsWith(".xml") || (f.getName().endsWith(".jff"))) return true;
         return false;
-    } 
+    }
+
+	public Serializable decode(InputStream stream){
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		try {
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			Document doc = builder.parse(stream);
+			Transducer transducer = TransducerFactory.getTransducer(doc);
+			return transducer.fromDOM(doc);
+		} catch (ParserConfigurationException e) {
+			throw new ParseException("Java could not create the parser!");
+		} catch (IOException e) {
+			throw new ParseException("Could not open file to read!");
+		} catch (org.xml.sax.SAXException e) {
+			throw new ParseException("Could not parse XML!\n" + e.getMessage());
+		} catch (ExceptionInInitializerError e) {
+			// Hmm. That shouldn't be.
+			logger.error("Static Init: {}", e.getLocalizedMessage(), e);
+			throw new ParseException("Unexpected Error!");
+		}
+	}
 
 	/**
 	 * Given a file, this will return a JFLAP structure associated with that
@@ -65,22 +86,10 @@ public class XMLCodec extends Codec {
 	 *             if there was a problem reading the file
 	 */
 	public Serializable decode(File file, Map parameters) {
-		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		try {
-			DocumentBuilder builder = factory.newDocumentBuilder();
-			Document doc = builder.parse(file);
-			Transducer transducer = TransducerFactory.getTransducer(doc);
-			return transducer.fromDOM(doc);
-		} catch (ParserConfigurationException e) {
-			throw new ParseException("Java could not create the parser!");
-		} catch (IOException e) {
-			throw new ParseException("Could not open file to read!");
-		} catch (org.xml.sax.SAXException e) {
-			throw new ParseException("Could not parse XML!\n" + e.getMessage());
-		} catch (ExceptionInInitializerError e) {
-			// Hmm. That shouldn't be.
-			logger.error("Static Init: {}", e.getLocalizedMessage(), e);
-			throw new ParseException("Unexpected Error!");
+			return decode(new FileInputStream(file));
+		} catch (FileNotFoundException e) {
+			throw new RuntimeException(e);
 		}
 	}
 
