@@ -42,7 +42,7 @@ public class CommandLine {
 
         @Override
         public void run() {
-            FiniteStateAutomaton a = IO.loadAutomaton(checked(new File(file.get(0))));
+            FiniteStateAutomaton a = IO.loadAutomaton(file.get(0));
             if (!FSAToRegularExpressionConverter.isConvertable(a)){
                 FSAToRegularExpressionConverter.convertToSimpleAutomaton(a);
             }
@@ -59,12 +59,10 @@ public class CommandLine {
 
         @Override
         public void run() {
-            File automaton1 = checked(new File(files.get(0)));
-            File automaton2 = checked(new File(files.get(1)));
-            FiniteStateAutomaton a1 = IO.loadAutomaton(automaton1);
-            FiniteStateAutomaton a2 = IO.loadAutomaton(automaton2);
+            FiniteStateAutomaton a1 = IO.loadAutomaton(files.get(0));
+            FiniteStateAutomaton a2 = IO.loadAutomaton(files.get(1));
             boolean equal = new FSAEqualityChecker().equals(a1, a2);
-            System.out.println("equivalent?: " + equal);
+            System.out.println(equal);
         }
     }
 
@@ -86,7 +84,7 @@ public class CommandLine {
             if (sim == null) throw new RuntimeException("Cannot load an automaton simulator for " + automaton.getClass());
             // Test the automaton with an input
             boolean accept = sim.simulateInput(input);
-            System.out.println("accept?: " + accept);
+            System.out.println(accept);
         }
     }
 
