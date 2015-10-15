@@ -33,7 +33,7 @@ Finally, include jflap-lib as a dependency:
 <dependency>
     <groupId>com.github.citiususc.jflap</groupId>
     <artifactId>jflaplib-core</artifactId>
-    <version>1.3</version>
+    <version>1.2</version>
 </dependency>
 ```
 
@@ -60,17 +60,12 @@ The module `jflaplib-cli` provides a command line tool with basic functionality.
 
 ##### Runs the provided automaton on the input `10110`
 ```
-$ jflaplib-cli-1.3-bundle.jar run /tmp/file.jff 10110
+$ java -jar jflaplib-cli-1.2-bundle.jar automaton run /tmp/file.jff 10110
 ```
 
 ##### Checks if the two FSA accept the same language
 ```
-$ jflaplib-cli-1.3-bundle.jar equivalent /tmp/file1.jff /tmp/file2.jff
-```
-
-##### Converts a FSA to its equivalent regular expression
-```
-$ jflaplib-cli-1.3-bundle.jar regular /tmp/file1.jff
+$ java -jar jflaplib-cli-1.2-bundle.jar automaton equivalent /tmp/file1.jff /tmp/file2.jff
 ```
 
 ## JFLAP 7.0 License
