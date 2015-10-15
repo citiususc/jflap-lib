@@ -6,6 +6,7 @@ import com.beust.jcommander.Parameter;
 import com.beust.jcommander.Parameters;
 import edu.duke.cs.jflap.automata.AutomatonSimulator;
 import edu.duke.cs.jflap.automata.SimulatorFactory;
+import edu.duke.cs.jflap.automata.fsa.FSAToRegularExpressionConverter;
 import edu.duke.cs.jflap.automata.fsa.FiniteStateAutomaton;
 import edu.duke.cs.jflap.automata.graph.FSAEqualityChecker;
 import edu.duke.cs.jflap.file.xml.AutomatonTransducer;
@@ -20,6 +21,7 @@ public class CommandLine {
         Cli
                 .include("run", RunInputCommand.class)
                 .andInclude("equivalent", EquivalentCommand.class)
+                .andInclude("regular", FiniteAutomatonToRE.class)
                 .showTraceOnError(false)
                 .parseAndRun(args);
 
@@ -32,8 +34,19 @@ public class CommandLine {
         return file;
     }
 
-    private static File file(String file){
-        return new File(file);
+    @Parameters(separators = "=", commandDescription = "Convert a Finite State Automaton to a Regular Expression")
+    public static class FiniteAutomatonToRE implements Runnable {
+
+        @Parameter(description = "<file>", required = true, arity = 1)
+        private List<String> file = new ArrayList<String>();
+
+        @Override
+        public void run() {
+            FiniteStateAutomaton a = IO.loadAutomaton(file.get(0));
+            FSAToRegularExpressionConverter.convertToSimpleAutomaton(a);
+            String re = FSAToRegularExpressionConverter.convertToRegularExpression(a);
+            System.out.println(re);
+        }
     }
 
     @Parameters(separators = "=", commandDescription = "Check if two FSA accept the same language")
@@ -44,12 +57,10 @@ public class CommandLine {
 
         @Override
         public void run() {
-            File automaton1 = checked(file(files.get(0)));
-            File automaton2 = checked(file(files.get(1)));
-            FiniteStateAutomaton a1 = IO.loadAutomaton(automaton1);
-            FiniteStateAutomaton a2 = IO.loadAutomaton(automaton2);
+            FiniteStateAutomaton a1 = IO.loadAutomaton(files.get(0));
+            FiniteStateAutomaton a2 = IO.loadAutomaton(files.get(1));
             boolean equal = new FSAEqualityChecker().equals(a1, a2);
-            System.out.println("equivalent?: " + equal);
+            System.out.println(equal);
         }
     }
 
@@ -71,7 +82,7 @@ public class CommandLine {
             if (sim == null) throw new RuntimeException("Cannot load an automaton simulator for " + automaton.getClass());
             // Test the automaton with an input
             boolean accept = sim.simulateInput(input);
-            System.out.println("accept?: " + accept);
+            System.out.println(accept);
         }
     }
 

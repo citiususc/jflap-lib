@@ -60,12 +60,17 @@ The module `jflaplib-cli` provides a command line tool with basic functionality.
 
 ##### Runs the provided automaton on the input `10110`
 ```
-$ jflaplib-cli-1.3-SNAPSHOT-bundle.jar automaton run /tmp/file.jff 10110
+$ jflaplib-cli-1.3-SNAPSHOT-bundle.jar run /tmp/file.jff 10110
 ```
 
 ##### Checks if the two FSA accept the same language
 ```
-$ jflaplib-cli-1.3-SNAPSHOT-bundle.jar automaton equivalent /tmp/file1.jff /tmp/file2.jff
+$ jflaplib-cli-1.3-SNAPSHOT-bundle.jar equivalent /tmp/file1.jff /tmp/file2.jff
+```
+
+##### Converts a FSA to its equivalent regular expression
+```
+$ jflaplib-cli-1.3-SNAPSHOT-bundle.jar regular /tmp/file1.jff
 ```
 
 ## JFLAP 7.0 License
