@@ -32,7 +32,7 @@ Finally, include jflap-lib as a dependency:
 ```xml
 <dependency>
     <groupId>com.github.citiususc.jflap</groupId>
-    <artifactId>jflaplib-core</artifactId>
+    <artifactId>jflap-lib</artifactId>
     <version>1.3</version>
 </dependency>
 ```
