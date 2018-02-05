@@ -31,13 +31,13 @@ Finally, include jflap-lib as a dependency:
 
 ```xml
 <dependency>
-    <groupId>com.github.citiususc.jflap</groupId>
+    <groupId>com.github.citiususc</groupId>
     <artifactId>jflap-lib</artifactId>
     <version>1.3</version>
 </dependency>
 ```
 
-You can also download the compiled jars from the [release page](../../releases) or from [jitpack.io](https://jitpack.io/#citiususc/jflap-lib/1.0).
+You can also download the compiled jars from the [release page](../../releases) or from [jitpack.io](https://jitpack.io/#citiususc/jflap-lib/3.0).
 
 ## Example
 
